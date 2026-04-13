@@ -1,0 +1,103 @@
+[gd_scene load_steps=7 format=3 uid="uid://kotaclass001"]
+
+[ext_resource type="Script" path="res://scripts/classroom.gd" id="1_class"]
+[ext_resource type="PackedScene" uid="uid://kotaplayer001" path="res://scenes/player.tscn" id="2_player"]
+[ext_resource type="Script" path="res://scripts/interaction.gd" id="3_interact"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(1280, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(40, 720)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_teacher"]
+size = Vector2(120, 90)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
+size = Vector2(48, 100)
+
+[node name="Classroom" type="Node2D"]
+script = ExtResource("1_class")
+
+[node name="Walls" type="Node2D" parent="."]
+
+[node name="Top" type="StaticBody2D" parent="Walls"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Top"]
+position = Vector2(640, 20)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="Bottom" type="StaticBody2D" parent="Walls"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom"]
+position = Vector2(640, 700)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="Left" type="StaticBody2D" parent="Walls"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Left"]
+position = Vector2(20, 360)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="Right" type="StaticBody2D" parent="Walls"]
+collision_layer = 1
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Right"]
+position = Vector2(1260, 360)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="BG" type="ColorRect" parent="."]
+offset_right = 1280.0
+offset_bottom = 720.0
+color = Color(0.12, 0.16, 0.18, 1)
+
+[node name="Board" type="ColorRect" parent="."]
+offset_left = 360.0
+offset_top = 80.0
+offset_right = 920.0
+offset_bottom = 220.0
+color = Color(0.08, 0.1, 0.09, 1)
+
+[node name="LabelClass" type="Label" parent="."]
+offset_left = 40.0
+offset_top = 60.0
+offset_right = 720.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(0.9, 0.92, 0.95, 1)
+theme_override_font_sizes/font_size = 22
+text = "Classroom — talk to Sir (E), door returns to hostel"
+
+[node name="SpawnPoint" type="Marker2D" parent="."]
+position = Vector2(200, 360)
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+
+[node name="Teacher" type="Area2D" parent="."]
+position = Vector2(640, 200)
+script = ExtResource("3_interact")
+prompt_text = "E — Talk to Sir"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Teacher"]
+shape = SubResource("RectangleShape2D_teacher")
+
+[node name="TeacherSprite" type="ColorRect" parent="Teacher"]
+offset_left = -60.0
+offset_top = -45.0
+offset_right = 60.0
+offset_bottom = 45.0
+color = Color(0.85, 0.55, 0.35, 1)
+
+[node name="Door" type="Area2D" parent="."]
+position = Vector2(1210, 380)
+script = ExtResource("3_interact")
+prompt_text = "E — Back to hostel"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door"]
+shape = SubResource("RectangleShape2D_door")

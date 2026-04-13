@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://cx0jbkyb87aii"]
+
+[ext_resource type="Script" uid="uid://btrgob3e08d1l" path="res://scripts/hostel_room.gd" id="1_hostel"]
+[ext_resource type="PackedScene" uid="uid://cx0jjhghaeaii" path="res://scenes/player.tscn" id="2_player"]
+[ext_resource type="Script" uid="uid://bill6g4q2mrym" path="res://scripts/interaction.gd" id="3_interact"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_h"]
+size = Vector2(1280, 40)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall_v"]
+size = Vector2(40, 720)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_bed"]
+size = Vector2(100, 56)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_door"]
+size = Vector2(48, 100)
+
+[node name="HostelRoom" type="Node2D" unique_id=372697366]
+script = ExtResource("1_hostel")
+
+[node name="Walls" type="Node2D" parent="." unique_id=335912757]
+
+[node name="Top" type="StaticBody2D" parent="Walls" unique_id=1682433435]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Top" unique_id=1483228544]
+position = Vector2(640, 20)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="Bottom" type="StaticBody2D" parent="Walls" unique_id=1049717358]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Bottom" unique_id=1474340281]
+position = Vector2(640, 700)
+shape = SubResource("RectangleShape2D_wall_h")
+
+[node name="Left" type="StaticBody2D" parent="Walls" unique_id=979894068]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Left" unique_id=830180216]
+position = Vector2(20, 360)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="Right" type="StaticBody2D" parent="Walls" unique_id=1463277490]
+collision_mask = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Walls/Right" unique_id=1676267103]
+position = Vector2(1260, 360)
+shape = SubResource("RectangleShape2D_wall_v")
+
+[node name="BG" type="ColorRect" parent="." unique_id=43441161]
+offset_left = 1.0
+offset_top = -5.0
+offset_right = 1281.0
+offset_bottom = 715.0
+rotation = 0.00077692256
+color = Color(0.16, 0.14, 0.2, 1)
+
+[node name="Desk" type="ColorRect" parent="." unique_id=1241711981]
+offset_left = 80.0
+offset_top = 420.0
+offset_right = 260.0
+offset_bottom = 520.0
+color = Color(0.35, 0.22, 0.14, 1)
+
+[node name="BedVisual" type="ColorRect" parent="." unique_id=1289061721]
+offset_left = 900.0
+offset_top = 420.0
+offset_right = 1080.0
+offset_bottom = 520.0
+color = Color(0.25, 0.28, 0.45, 1)
+
+[node name="DoorVisual" type="ColorRect" parent="." unique_id=1166427274]
+offset_left = 1180.0
+offset_top = 300.0
+offset_right = 1240.0
+offset_bottom = 460.0
+color = Color(0.45, 0.38, 0.28, 1)
+
+[node name="LabelHostel" type="Label" parent="." unique_id=1121769539]
+offset_left = 40.0
+offset_top = 60.0
+offset_right = 520.0
+offset_bottom = 120.0
+theme_override_colors/font_color = Color(0.9, 0.9, 0.95, 1)
+theme_override_font_sizes/font_size = 22
+text = "Hostel room — WASD move, E interact, TAB phone"
+
+[node name="SpawnPoint" type="Marker2D" parent="." unique_id=1753141310]
+position = Vector2(200, 360)
+
+[node name="Player" parent="." unique_id=1339370170 instance=ExtResource("2_player")]
+
+[node name="Bed" type="Area2D" parent="." unique_id=1541356750]
+position = Vector2(990, 470)
+script = ExtResource("3_interact")
+prompt_text = "E — Sleep"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Bed" unique_id=1103362489]
+shape = SubResource("RectangleShape2D_bed")
+
+[node name="Door" type="Area2D" parent="." unique_id=1865128043]
+position = Vector2(1210, 380)
+script = ExtResource("3_interact")
+prompt_text = "E — Go to class"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Door" unique_id=438667503]
+shape = SubResource("RectangleShape2D_door")

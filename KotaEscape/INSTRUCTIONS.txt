@@ -1,0 +1,65 @@
+Kota Escape — Godot 4 prototype
+==============================
+
+Requirements
+------------
+- Godot 4.2+ (tested against 4.3 project settings). Open the folder
+  `KotaEscape` as a project (project.godot).
+
+Run
+---
+- Main scene: `res://scenes/hostel_room.tscn` (set in project.godot).
+- Press F5 to play.
+
+Controls
+--------
+- Move: WASD or Arrow keys
+- Interact: E (when prompt appears)
+- Phone: TAB (toggle). While open, movement is disabled.
+- Phone “Scroll reels”: lowers stress, lowers focus (per GameManager).
+
+Autoloads (already wired in project.godot)
+-------------------------------------------
+- `GameManager` → `res://scripts/game_manager.gd`
+- `GameUI` → `res://scenes/game_ui.tscn` (root node uses `res://scripts/ui.gd`)
+
+Scene / script map
+-------------------
+- `scenes/hostel_room.tscn` + `scripts/hostel_room.gd`
+  - Spawn, bed (sleep → end day), door (→ classroom).
+  - Morning vs mid-day entry uses `GameManager.consume_morning_reset()`.
+- `scenes/classroom.tscn` + `scripts/classroom.gd`
+  - Teacher (E) opens dialogue via `GameUI.open_teacher_flow()`.
+  - Door returns to hostel without forcing a new “morning”.
+- `scenes/player.tscn` + `scripts/player.gd`
+  - CharacterBody2D, speed 200, InteractionZone Area2D (layer 2, mask 4).
+- `scenes/game_ui.tscn` + `scripts/ui.gd`
+  - Stats bar, prompts, dialogue + choices, phone panel, toasts.
+- `scenes/ending.tscn` + `scripts/ending.gd`
+  - After sleeping past Day 3 (i.e. when day becomes 4).
+
+Interactables
+-------------
+- Each hotspot is an `Area2D` with `scripts/interaction.gd`.
+- Collision: layer = “interactable” (project layer 3, bitmask 4), mask = 2 (player).
+- `prompt_text` is edited on the node in the inspector.
+- `interacted` signal is connected in the room script to local handlers.
+
+Physics layers (project.godot)
+------------------------------
+- Layer 1 “world”: static walls (bit 1).
+- Layer 2 “player”: CharacterBody2D + InteractionZone (bit 2).
+- Layer 3 “interactable”: interactable areas (bit 4).
+
+Loop / progression (GameManager)
+--------------------------------
+- `end_day()` applies skip penalty if `went_to_class_today` is false, clears
+  `left_early_day3`, increments `day`, then loads hostel or ending.
+- Day 3 teacher choice “Leave early” sets `left_early_day3` and a toast message;
+  phone messages update accordingly.
+- Hint screen line: “You can change this.”
+
+If something does not register on E
+------------------------------------
+- Confirm the player’s `InteractionZone` collision_mask includes layer 3
+  (value 4) and interactables use collision_layer 4.

@@ -1,0 +1,17 @@
+63f7b34db8d8cdea90c76aacccf841ec
+::res://::1776055250
+INSTRUCTIONS.txt::TextFile::-1::1776053152::0::1::::<><><>0<>0<><>::
+::res://scenes/::1776053088
+classroom.tscn::PackedScene::731943469864063680::1776053107::0::1::::<><><>0<>0<><>::res://scripts/classroom.gd<>uid://cx0jjhghaeaii::::res://scenes/player.tscn<>res://scripts/interaction.gd
+ending.tscn::PackedScene::633169185247672::1776053088::0::1::::<><><>0<>0<><>::res://scripts/ending.gd
+game_ui.tscn::PackedScene::633169285669392::1776053066::0::1::::<><><>0<>0<><>::res://scripts/ui.gd
+hostel_room.tscn::PackedScene::6439343016040844360::1776053105::0::1::::<><><>0<>0<><>::res://scripts/hostel_room.gd<>uid://cx0jjhghaeaii::::res://scenes/player.tscn<>res://scripts/interaction.gd
+player.tscn::PackedScene::6439357117242966552::1776053058::0::1::::<><><>0<>0<><>::res://scripts/player.gd
+::res://scripts/::1776053017
+classroom.gd::GDScript::7158934457681028297::1776053016::0::1::::<>Node2D<><>0<>0<><>::
+ending.gd::GDScript::5718908322409039927::1776053017::0::1::::<>Control<><>0<>0<><>::
+game_manager.gd::GDScript::7362733287177243552::1776053038::0::1::::<>Node<><>0<>0<><>::
+hostel_room.gd::GDScript::3755492533700325155::1776053109::0::1::::<>Node2D<><>0<>0<><>::
+interaction.gd::GDScript::2971363195326469456::1776053007::0::1::::<>Area2D<><>0<>0<><>::
+player.gd::GDScript::962057091012284979::1776053122::0::1::::<>CharacterBody2D<><>0<>0<><>::
+ui.gd::GDScript::156862096800058036::1776053122::0::1::::<>CanvasLayer<><>0<>0<><>::
